@@ -7,7 +7,7 @@ const counter = document.getElementById("counter");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-const images = ["img/foto1.jpg", "img/foto2.jpg", "img/foto3.jpg"];
+const images = ["img/foto1.png", "img/foto2.png", "img/foto3.png"];
 let currentImage = 0;
 let opened = false;
 
