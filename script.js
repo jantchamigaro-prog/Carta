@@ -7,17 +7,14 @@ const counter = document.getElementById("counter");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-const images = ["img/foto1.png", "img/foto2.png", "img/foto3.png"];
+const images = ["img/foto1.jpg", "img/foto2.jpg", "img/foto3.jpg"];
 let currentImage = 0;
 let opened = false;
 
-// =========================
-// VISOR DE IMÁGENES (referencias)
-// =========================
+// Visor de imagen ampliada
 const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
 const modalClose = document.getElementById("modalClose");
-
 let previousFocus = null;
 
 // Secuencia de apertura: sello -> solapa -> papel sube -> sobre se retira -> carta
@@ -40,11 +37,6 @@ function showImage(index) {
     galleryImage.src = images[index];
     counter.textContent = `${index + 1} / ${images.length}`;
     galleryImage.style.opacity = "1";
-
-    // Si el visor está abierto, actualizarlo también
-    if (imageModal.classList.contains("active")) {
-      modalImage.src = images[index];
-    }
   }, 200);
 }
 
@@ -64,50 +56,30 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") prevBtn.click();
 });
 
-// =========================
-// VISOR DE IMÁGENES
-// =========================
 
-// Abrir imagen ampliada
-galleryImage.addEventListener("click", () => {
+// =========================
+// VISOR DE IMAGEN AMPLIADA
+// =========================
+function openModal() {
   previousFocus = document.activeElement;
-
-  modalImage.src = galleryImage.src;
+  modalImage.src = images[currentImage];
   modalImage.alt = galleryImage.alt;
-
   imageModal.classList.add("active");
   imageModal.setAttribute("aria-hidden", "false");
-
   document.body.style.overflow = "hidden";
   modalClose.focus();
-});
+}
 
-// Cerrar imagen ampliada
 function closeModal() {
   imageModal.classList.remove("active");
   imageModal.setAttribute("aria-hidden", "true");
-
   document.body.style.overflow = "";
-
-  if (previousFocus) previousFocus.focus();
+  if (previousFocus && previousFocus.focus) previousFocus.focus();
 }
 
-// Cerrar con el botón X
+galleryImage.addEventListener("click", openModal);
 modalClose.addEventListener("click", closeModal);
-
-// Cerrar pulsando fuera de la imagen
+// Cerrar pulsando en el fondo o en la propia imagen
 imageModal.addEventListener("click", (e) => {
-  if (e.target === imageModal) {
-    closeModal();
-  }
-});
-
-// Cerrar con Escape
-document.addEventListener("keydown", (e) => {
-  if (
-    e.key === "Escape" &&
-    imageModal.classList.contains("active")
-  ) {
-    closeModal();
-  }
+  if (e.target !== modalClose) closeModal();
 });
