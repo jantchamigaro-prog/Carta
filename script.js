@@ -7,15 +7,43 @@ const counter = document.getElementById("counter");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-const images = ["img/foto1.jpg", "img/foto2.jpg", "img/foto3.jpg"];
+const images = ["img/foto1.png", "img/foto2.png", "img/foto3.png"];
 let currentImage = 0;
 let opened = false;
 
-// Visor de imagen ampliada
-const imageModal = document.getElementById("imageModal");
+// Visor de imagen ampliada (si no existe en el HTML/CSS, se crea aquí)
+let imageModal = document.getElementById("imageModal");
+if (!imageModal) {
+  imageModal = document.createElement("div");
+  imageModal.id = "imageModal";
+  imageModal.className = "image-modal";
+  imageModal.setAttribute("role", "dialog");
+  imageModal.setAttribute("aria-modal", "true");
+  imageModal.setAttribute("aria-label", "Fotografía ampliada");
+  imageModal.setAttribute("aria-hidden", "true");
+  imageModal.innerHTML =
+    '<button class="modal-close" id="modalClose" aria-label="Cerrar imagen">&times;</button>' +
+    '<img id="modalImage" src="" alt="Fotografía ampliada">';
+  document.body.appendChild(imageModal);
+}
 const modalImage = document.getElementById("modalImage");
 const modalClose = document.getElementById("modalClose");
 let previousFocus = null;
+
+// Si los estilos del visor no están cargados, se inyectan
+if (getComputedStyle(imageModal).position !== "fixed") {
+  const st = document.createElement("style");
+  st.textContent = `
+    .gallery-photo::before { pointer-events: none; }
+    .gallery-photo img { cursor: zoom-in; }
+    .image-modal { position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 50px 16px; background: rgba(7,3,8,.94); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .35s ease, visibility .35s ease; }
+    .image-modal.active { opacity: 1; visibility: visible; pointer-events: auto; }
+    .image-modal img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-out; border: 5px solid #eee0ce; border-radius: 3px; box-shadow: 0 20px 70px rgba(0,0,0,.7); transform: scale(.9); transition: transform .35s ease; }
+    .image-modal.active img { transform: scale(1); }
+    .modal-close { position: absolute; top: 14px; right: 24px; z-index: 2; background: none; border: 0; cursor: pointer; font-size: 42px; line-height: 1; color: #e8d9d0; }
+  `;
+  document.head.appendChild(st);
+}
 
 // Secuencia de apertura: sello -> solapa -> papel sube -> sobre se retira -> carta
 seal.addEventListener("click", () => {
@@ -77,7 +105,9 @@ function closeModal() {
   if (previousFocus && previousFocus.focus) previousFocus.focus();
 }
 
-galleryImage.addEventListener("click", openModal);
+document.addEventListener("click", (e) => {
+  if (e.target.closest && e.target.closest(".gallery-photo img")) openModal();
+});
 modalClose.addEventListener("click", closeModal);
 // Cerrar pulsando en el fondo o en la propia imagen
 imageModal.addEventListener("click", (e) => {
