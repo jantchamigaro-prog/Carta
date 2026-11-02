@@ -11,6 +11,15 @@ const images = ["img/foto1.png", "img/foto2.png", "img/foto3.png"];
 let currentImage = 0;
 let opened = false;
 
+// =========================
+// VISOR DE IMÁGENES (referencias)
+// =========================
+const imageModal = document.getElementById("imageModal");
+const modalImage = document.getElementById("modalImage");
+const modalClose = document.getElementById("modalClose");
+
+let previousFocus = null;
+
 // Secuencia de apertura: sello -> solapa -> papel sube -> sobre se retira -> carta
 seal.addEventListener("click", () => {
   if (opened) return;
@@ -31,6 +40,11 @@ function showImage(index) {
     galleryImage.src = images[index];
     counter.textContent = `${index + 1} / ${images.length}`;
     galleryImage.style.opacity = "1";
+
+    // Si el visor está abierto, actualizarlo también
+    if (imageModal.classList.contains("active")) {
+      modalImage.src = images[index];
+    }
   }, 200);
 }
 
@@ -53,12 +67,6 @@ document.addEventListener("keydown", (e) => {
 // =========================
 // VISOR DE IMÁGENES
 // =========================
-
-const imageModal = document.getElementById("imageModal");
-const modalImage = document.getElementById("modalImage");
-const modalClose = document.getElementById("modalClose");
-
-let previousFocus = null;
 
 // Abrir imagen ampliada
 galleryImage.addEventListener("click", () => {

@@ -231,6 +231,7 @@ body {
   content: ""; position: absolute; top: -12px; left: 50%; width: 80px; height: 24px;
   transform: translateX(-50%) rotate(2deg); background: rgba(150, 30, 60, .35);
   box-shadow: 0 1px 3px rgba(0,0,0,.15);
+  pointer-events: none; /* CORRECCIÓN: la cinta ya no bloquea el clic en la foto */
 }
 .gallery-photo img {
   width: 100%; height: 190px; object-fit: cover; display: block;
