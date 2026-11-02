@@ -7,7 +7,8 @@ const counter = document.getElementById("counter");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-const images = ["img/foto1.png", "img/foto2.png", "img/foto3.png"];
+const candidates = ["img/foto1.png", "img/foto2.png", "img/foto3.png"];
+let images = candidates.slice();
 let currentImage = 0;
 let opened = false;
 
@@ -61,12 +62,38 @@ seal.addEventListener("click", () => {
 
 function showImage(index) {
   galleryImage.style.opacity = "0";
-  setTimeout(() => {
-    galleryImage.src = images[index];
-    counter.textContent = `${index + 1} / ${images.length}`;
-    galleryImage.style.opacity = "1";
-  }, 200);
+  const src = images[index];
+  const loader = new Image();
+  loader.onload = () => {
+    setTimeout(() => {
+      galleryImage.src = src;
+      counter.textContent = `${index + 1} / ${images.length}`;
+      galleryImage.style.opacity = "1";
+      // Si el visor está abierto, se mantiene sincronizado
+      if (imageModal.classList.contains("active")) modalImage.src = src;
+    }, 200);
+  };
+  loader.onerror = () => { galleryImage.style.opacity = "1"; };
+  loader.src = src;
 }
+
+// Solo se usan las fotos que realmente existen en la carpeta img/
+Promise.all(candidates.map(src => new Promise(resolve => {
+  const t = new Image();
+  t.onload = () => resolve(src);
+  t.onerror = () => resolve(null);
+  t.src = src;
+}))).then(found => {
+  images = found.filter(Boolean);
+  if (images.length === 0) return;
+  currentImage = 0;
+  galleryImage.src = images[0];
+  counter.textContent = `1 / ${images.length}`;
+  if (images.length < 2) {
+    prevBtn.style.display = "none";
+    nextBtn.style.display = "none";
+  }
+});
 
 nextBtn.addEventListener("click", () => {
   currentImage = (currentImage + 1) % images.length;
