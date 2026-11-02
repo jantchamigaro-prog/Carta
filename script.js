@@ -7,7 +7,7 @@ const counter = document.getElementById("counter");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-const candidates = ["img/foto1.png", "img/foto2.png", "img/foto3.png"];
+const candidates = ["img/foto1.png", "img/foto2.png", "img/foto3.png", "img/foto4.png"];
 let images = candidates.slice();
 let currentImage = 0;
 let opened = false;
