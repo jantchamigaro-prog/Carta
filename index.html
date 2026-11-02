@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -45,7 +46,6 @@
                 <stop offset=".82" stop-color="#121215"/>
                 <stop offset="1" stop-color="#060607"/>
               </radialGradient>
-              <!-- borde irregular + brillo de cera -->
               <filter id="wax" x="-15%" y="-15%" width="130%" height="130%">
                 <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="t"/>
                 <feDisplacementMap in="SourceGraphic" in2="t" scale="9" result="d"/>
@@ -56,7 +56,6 @@
                 <feComposite in="s" in2="d" operator="in" result="s2"/>
                 <feComposite in="d" in2="s2" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
               </filter>
-              <!-- relieve del grabado -->
               <filter id="emb" x="-10%" y="-10%" width="120%" height="120%">
                 <feGaussianBlur in="SourceAlpha" stdDeviation="1.3" result="b"/>
                 <feSpecularLighting in="b" surfaceScale="5" specularConstant="1.1" specularExponent="16" lighting-color="#d5d9e8" result="s">
@@ -86,30 +85,58 @@
       <!-- CARTA FINAL -->
       <article class="full-letter" id="fullLetter">
         <div class="paper sheet">
-        <span class="corner tl">❧</span><span class="corner tr">❧</span>
-        <span class="corner bl">❧</span><span class="corner br">❧</span>
+          <span class="corner tl">❧</span>
+          <span class="corner tr">❧</span>
+          <span class="corner bl">❧</span>
+          <span class="corner br">❧</span>
 
-        <div class="letter-inner">
-          <h2>1 mes juntitos</h2>
-          <div class="divider"><span>❦</span></div>
+          <div class="letter-inner">
+            <h2>1 mes juntitos</h2>
+            <div class="divider"><span>❦</span></div>
 
-          <p class="salutation">Para mi Dragona,</p>
-          <p class="lead">Aquí puedes escribir el texto que tú quieras. Esta carta está pensada para que quede con una estética romántica y un poco gótica.</p>
-          <p>Puedes cambiar este contenido por tu mensaje real, una dedicatoria, una carta especial o lo que necesites.</p>
-          <p>Debajo tienes unas imágenes que se pueden ir cambiando con las flechas.</p>
+            <p class="salutation">A mi Dragona</p>
 
-          <div class="gallery">
-            <button class="gallery-btn" id="prevBtn" aria-label="Imagen anterior">❮</button>
-            <figure class="gallery-photo">
-              <img id="galleryImage" src="img/foto1.png" alt="Imagen de la carta">
-              <figcaption id="counter">1 / 4</figcaption>
-            </figure>
-            <button class="gallery-btn" id="nextBtn" aria-label="Imagen siguiente">❯</button>
+            <!-- POEMA -->
+            <div class="poem">
+              <p class="stanza">Llegaste sin buscarte, de repente,<br>
+              y hallé la paz que tanto había ansiado;<br>
+              mi corazón se abrió sencillamente,<br>
+              sin miedo de mostrarte lo guardado.</p>
+
+              <p class="stanza">Quisiera regalarte mi mirada,<br>
+              que vieras lo que veo al contemplarte;<br>
+              sabrías que no existe en ti la nada,<br>
+              y cuánto puede el mundo admirarte.</p>
+
+              <p class="stanza">Donde otros ven la tempestad,<br>
+              donde otros solo encuentran frío,<br>
+              yo encuentro en ti mi eternidad,<br>
+              y en tus sombras el hogar que ansío.</p>
+
+              <p class="stanza">Ni las heridas que dejó el pasado,<br>
+              pudieron doblegar tu corazón;<br>
+              tus principios jamás has traicionado,<br>
+              ni has permitido ahogar tu compasión.</p>
+
+              <p class="stanza">No sé qué nos depara el nuevo día,<br>
+              ni cuánto nos permitirá soñar;<br>
+              tan solo sé que tú eres mi alegría,<br>
+              y que a tu lado quiero caminar.</p>
+            </div>
+
+            <!-- GALERÍA -->
+            <div class="gallery">
+              <button class="gallery-btn" id="prevBtn" aria-label="Imagen anterior">❮</button>
+              <figure class="gallery-photo">
+                <img id="galleryImage" src="img/foto1.png" alt="Imagen de la carta">
+                <figcaption id="counter">1 / 4</figcaption>
+              </figure>
+              <button class="gallery-btn" id="nextBtn" aria-label="Imagen siguiente">❯</button>
+            </div>
+
+            <p class="closing">De tu murcielaguito,</p>
+            <p class="signature">Jan</p>
           </div>
-
-          <p class="closing">De tu murcielaguito,</p>
-          <p class="signature">Jan</p>
-        </div>
         </div>
       </article>
     </section>

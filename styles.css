@@ -278,7 +278,6 @@ body {
 .letter-inner { font-family: "EB Garamond", serif; }
 .letter-inner h2 { font-family: "Cinzel Decorative", "Cinzel", serif; font-weight: 700; font-size: 2.1rem; letter-spacing: 2px; }
 .letter-inner p { font-size: 1.25rem; line-height: 1.72; font-weight: 400; }
-.salutation { font-family: "Pinyon Script", cursive !important; font-size: 2.4rem !important; line-height: 1.2 !important; text-align: left !important; color: var(--wine-ink); margin-bottom: 12px !important; }
 .lead::first-letter { font-family: "UnifrakturCook", "Cinzel", serif; font-weight: 700; font-size: 4.3rem; line-height: .78; padding: .07em .09em 0 0; }
 .closing { font-size: 1.3rem !important; }
 .signature { font-size: 2.5rem !important; }
@@ -286,7 +285,6 @@ body {
 @media (max-width: 700px) {
   .letter-inner h2 { font-size: 1.5rem; }
   .letter-inner p { font-size: 1.1rem; line-height: 1.65; }
-  .salutation { font-size: 1.9rem !important; }
   .lead::first-letter { font-size: 3.6rem; }
 }
 @media (prefers-reduced-motion: reduce) { .title { transition: opacity .6s; } }
@@ -330,4 +328,51 @@ body {
   .image-modal { padding: 56px 8px; }
   .image-modal img { border-width: 3px; }
   .modal-close { top: 8px; right: 14px; font-size: 38px; }
+}
+
+
+/* Formato del poema */
+
+.poem {
+  margin: 28px auto 36px;
+  width: fit-content;
+  max-width: 100%;
+  color: #382824;
+}
+
+.poem .stanza {
+  margin: 0 0 26px;
+  font-family: "EB Garamond", serif;
+  font-size: clamp(14px, 3.5vw, 21px);
+  line-height: 1.65;
+  text-align: left;
+  font-weight: 400;
+  overflow-wrap: normal;
+}
+
+.poem .stanza:last-child {
+  margin-bottom: 0;
+}
+/* Dedicatoria centrada sobre el ancho completo de la carta */
+.letter-inner p.salutation {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 30px 0 35px;
+  text-align: center;
+  hyphens: none;
+  font-family: "EB Garamond", serif;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #713044;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 700px) {
+  .letter-inner p.salutation {
+    font-size: 25px;
+    margin: 24px 0 28px;
+  }
 }
