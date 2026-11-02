@@ -290,3 +290,125 @@ body {
   .lead::first-letter { font-size: 3.6rem; }
 }
 @media (prefers-reduced-motion: reduce) { .title { transition: opacity .6s; } }
+
+/* =========================
+   VISOR DE IMÁGENES
+========================= */
+
+.gallery-photo img {
+  cursor: zoom-in;
+}
+
+/* Fondo oscuro del visor */
+.image-modal {
+  position: fixed;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+
+  background: rgba(7, 3, 8, 0.94);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 45px 20px;
+
+  z-index: 99999;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease;
+}
+
+/* Visor abierto */
+.image-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Fotografía ampliada */
+.image-modal img {
+  display: block;
+
+  max-width: 95%;
+  max-height: 90%;
+  max-height: 90dvh;
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+
+  border: 5px solid #eee0ce;
+
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(100, 15, 40, 0.25);
+
+  border-radius: 3px;
+
+  transform: scale(0.9);
+
+  transition: transform 0.35s ease;
+}
+
+/* Animación de entrada */
+.image-modal.active img {
+  transform: scale(1);
+}
+
+/* Botón de cerrar */
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+
+  background: none;
+  border: none;
+
+  font-size: 42px;
+  font-family: "Cinzel", serif;
+
+  color: #e8d9d0;
+  cursor: pointer;
+
+  z-index: 2;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #b53b58;
+  transform: rotate(90deg);
+}
+
+/* Ajustes para móviles */
+@media (max-width: 600px) {
+
+  .image-modal {
+    padding: 55px 10px;
+  }
+
+  .image-modal img {
+    max-width: 100%;
+    max-height: 85%;
+    max-height: 85dvh;
+    border-width: 3px;
+  }
+
+  .modal-close {
+    top: 12px;
+    right: 18px;
+    font-size: 38px;
+  }
+}

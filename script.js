@@ -49,3 +49,57 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") nextBtn.click();
   if (e.key === "ArrowLeft") prevBtn.click();
 });
+
+// =========================
+// VISOR DE IMÁGENES
+// =========================
+
+const imageModal = document.getElementById("imageModal");
+const modalImage = document.getElementById("modalImage");
+const modalClose = document.getElementById("modalClose");
+
+let previousFocus = null;
+
+// Abrir imagen ampliada
+galleryImage.addEventListener("click", () => {
+  previousFocus = document.activeElement;
+
+  modalImage.src = galleryImage.src;
+  modalImage.alt = galleryImage.alt;
+
+  imageModal.classList.add("active");
+  imageModal.setAttribute("aria-hidden", "false");
+
+  document.body.style.overflow = "hidden";
+  modalClose.focus();
+});
+
+// Cerrar imagen ampliada
+function closeModal() {
+  imageModal.classList.remove("active");
+  imageModal.setAttribute("aria-hidden", "true");
+
+  document.body.style.overflow = "";
+
+  if (previousFocus) previousFocus.focus();
+}
+
+// Cerrar con el botón X
+modalClose.addEventListener("click", closeModal);
+
+// Cerrar pulsando fuera de la imagen
+imageModal.addEventListener("click", (e) => {
+  if (e.target === imageModal) {
+    closeModal();
+  }
+});
+
+// Cerrar con Escape
+document.addEventListener("keydown", (e) => {
+  if (
+    e.key === "Escape" &&
+    imageModal.classList.contains("active")
+  ) {
+    closeModal();
+  }
+});
