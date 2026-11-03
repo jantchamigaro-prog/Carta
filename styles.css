@@ -338,6 +338,15 @@ body {
   width: fit-content;
   max-width: 100%;
   color: #382824;
+
+    position: relative;
+  left: +12px;
+}
+
+@media (max-width: 600px) {
+  .poem {
+    left: 0;
+  }
 }
 
 .poem .stanza {
