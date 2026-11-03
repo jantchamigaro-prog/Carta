@@ -345,7 +345,7 @@ body {
 
 @media (max-width: 600px) {
   .poem {
-    left: 0;
+    left: 10px;
   }
 }
 
